@@ -40,3 +40,18 @@ def add_book(request):
 
     return render(request, 'add_book.html', {'form': form})    
 
+
+
+def add_comment(request):
+    method = request.method
+    if method == 'BOOK':
+        form = forms.CommentForm(request.BOOK, request.FILES)
+        print(form.data)
+        if form.is_valid():
+            forms.save()
+            return HttpResponse('Comment created successfully')
+
+    else:
+        form = forms.CommentForm()
+
+    return render(request, 'add_comments.html', {'form': form}) 

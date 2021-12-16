@@ -47,3 +47,16 @@ def add_post(request):
 
     return render(request, 'add_post.html', {'form': form})    
 
+def add_comment(request):
+    method = request.method
+    if method == 'POST':
+        form = forms.CommentForm(request.POST, request.FILES)
+        print(form.data)
+        if form.is_valid():
+            forms.save()
+            return HttpResponse('Comment created successfully')
+
+    else:
+        form = forms.CommentForm()
+
+    return render(request, 'add_comment.html', {'form': form})            
